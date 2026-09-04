@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nyx UX Skeleton</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell" data-density="compact">
+      <header class="titlebar">
+        <div class="window-controls" aria-hidden="true">
+          <span class="control close"></span>
+          <span class="control minimize"></span>
+          <span class="control zoom"></span>
+        </div>
+        <button class="icon-button" id="sidebarToggle" title="Plier la colonne" aria-label="Plier la colonne">☰</button>
+        <div class="brand">
+          <strong>Nyx</strong>
+          <span>Dashboard skeleton</span>
+        </div>
+        <div class="toolbar-group">
+          <button class="tool-button" id="splitVertical">Split V</button>
+          <button class="tool-button" id="splitHorizontal">Split H</button>
+        </div>
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Rechercher">
+        </label>
+        <div class="runtime-badge">
+          <span class="status-dot"></span>
+          <span>v0.1.0 · fixture-only</span>
+        </div>
+      </header>
+
+      <nav class="tabbar" id="tabbar" aria-label="Onglets"></nav>
+
+      <main class="workspace">
+        <aside class="sidebar" id="sidebar">
+          <section class="sidebar-section">
+            <button class="section-title" data-toggle="cockpit">Cockpit</button>
+            <div class="section-body" id="section-cockpit">
+              <button class="nav-row active" data-tab="today">Aujourd'hui</button>
+              <button class="nav-row" data-tab="queue">Queue</button>
+              <button class="nav-row" data-tab="agenda">Agenda</button>
+              <button class="nav-row" data-tab="notecortex">NoteCortex</button>
+            </div>
+          </section>
+
+          <section class="sidebar-section">
+            <button class="section-title" data-toggle="blades">Blades</button>
+            <div class="section-body blade-list" id="section-blades"></div>
+          </section>
+
+          <section class="sidebar-section">
+            <button class="section-title" data-toggle="notes">Notes fixture</button>
+            <div class="section-body" id="section-notes"></div>
+          </section>
+
+          <section class="sidebar-section guardrails">
+            <div class="guardrail danger">No NotePlan writes</div>
+            <div class="guardrail warning">No KM writes</div>
+          </section>
+        </aside>
+
+        <section class="pane-stage" id="paneStage" aria-live="polite"></section>
+
+        <aside class="theme-panel" id="themePanel">
+          <div class="theme-head">
+            <div>
+              <strong>Theme Editor</strong>
+              <span>CSS live</span>
+            </div>
+            <button class="icon-button" id="themeToggle" title="Masquer l'éditeur" aria-label="Masquer l'éditeur">›</button>
+          </div>
+
+          <div class="preset-row" aria-label="Presets">
+            <button class="preset active" data-preset="nyx">Nyx</button>
+            <button class="preset" data-preset="graphite">Graphite</button>
+            <button class="preset" data-preset="daylight">Daylight</button>
+          </div>
+
+          <form class="theme-form" id="themeForm">
+            <label class="theme-field">
+              <span>Accent</span>
+              <input type="color" data-token="--accent" value="#48c7c2">
+            </label>
+            <label class="theme-field">
+              <span>Fond</span>
+              <input type="color" data-token="--ink-0" value="#07080b">
+            </label>
+            <label class="theme-field">
+              <span>Surface</span>
+              <input type="color" data-token="--ink-1" value="#101116">
+            </label>
+            <label class="theme-field">
+              <span>Texte</span>
+              <input type="color" data-token="--bone-0" value="#f3f5f7">
+            </label>
+            <label class="theme-field">
+              <span>Radius</span>
+              <input type="range" data-token="--radius" data-unit="px" min="0" max="18" value="8">
+            </label>
+            <label class="theme-field">
+              <span>Sidebar</span>
+              <input type="range" data-token="--sidebar-w" data-unit="px" min="210" max="340" value="260">
+            </label>
+            <label class="theme-field">
+              <span>Densité</span>
+              <input type="range" data-density min="0" max="2" value="1">
+            </label>
+          </form>
+
+          <div class="theme-actions">
+            <button class="tool-button" id="copyCss">Copier CSS</button>
+            <button class="tool-button" id="downloadCss">Exporter</button>
+            <button class="tool-button" id="resetTheme">Reset</button>
+          </div>
+
+          <textarea class="css-output" id="cssOutput" spellcheck="false" aria-label="CSS exporté"></textarea>
+        </aside>
+      </main>
+    </div>
+
+    <template id="paneTemplate">
+      <article class="pane" draggable="true">
+        <header class="pane-header">
+          <button class="pane-collapse" title="Replier">⌄</button>
+          <span class="pane-mode"></span>
+          <strong class="pane-title"></strong>
+          <span class="pane-source"></span>
+          <button class="pane-action pane-zoom" title="Zoom">□</button>
+          <button class="pane-action pane-close" title="Fermer">×</button>
+        </header>
+        <div class="pane-content"></div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

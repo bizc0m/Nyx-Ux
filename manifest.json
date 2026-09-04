@@ -1,0 +1,23 @@
+{
+  "name": "Nyx UX Skeleton",
+  "version": "0.1.0",
+  "date": "2026-09-03",
+  "kind": "static-html-css-js",
+  "status": "fixture-only",
+  "entrypoint": "index.html",
+  "files": [
+    "index.html",
+    "styles.css",
+    "app.js",
+    "fixtures.json",
+    "README.md",
+    "RELEASE_NOTES.md",
+    "VERSION",
+    "manifest.json"
+  ],
+  "guards": [
+    "No real NotePlan writes",
+    "No real KM writes",
+    "No Nyx Core modification"
+  ]
+}

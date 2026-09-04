@@ -1,0 +1,127 @@
+{
+  "tabs": [
+    {
+      "id": "today",
+      "label": "Aujourd'hui",
+      "panes": ["queue", "journal", "captures"]
+    },
+    {
+      "id": "queue",
+      "label": "Queue",
+      "panes": ["queue"]
+    },
+    {
+      "id": "agenda",
+      "label": "Agenda",
+      "panes": ["agenda"]
+    },
+    {
+      "id": "notecortex",
+      "label": "NoteCortex",
+      "panes": ["notecortex"]
+    },
+    {
+      "id": "multi-llm",
+      "label": "Multi-LLM",
+      "panes": ["multi-llm"]
+    },
+    {
+      "id": "notedroppy",
+      "label": "NoteDroppy",
+      "panes": ["notedroppy"]
+    }
+  ],
+  "blades": [
+    { "id": "queue", "label": "Queue", "kind": "Alert", "count": "3" },
+    { "id": "agenda", "label": "Agenda", "kind": "Calendar", "count": "" },
+    { "id": "km", "label": "KM Raindrop", "kind": "Source", "count": "48" },
+    { "id": "graph", "label": "Search / Graph", "kind": "Index", "count": "" },
+    { "id": "inventory", "label": "App Inventory", "kind": "Audit", "count": "" },
+    { "id": "notecortex", "label": "NoteCortex", "kind": "Action", "count": "" },
+    { "id": "multi-llm", "label": "Multi-LLM", "kind": "LLM", "count": "" },
+    { "id": "notedroppy", "label": "NoteDroppy", "kind": "Capture", "count": "" }
+  ],
+  "notes": [
+    { "name": "01-projets", "files": [] },
+    { "name": "_KM", "files": ["Base Lien.md", "Raindrop Full Ingest.md"] },
+    { "name": "_Dash", "files": [] },
+    { "name": "02-apps", "files": [] },
+    { "name": "_Tools", "files": [] }
+  ],
+  "panes": {
+    "queue": {
+      "title": "Backlog urgences",
+      "source": "Queue",
+      "mode": "read-only",
+      "items": [
+        { "tone": "danger", "text": "Sync KM Raindrop cassé depuis migration", "meta": "2h" },
+        { "tone": "warning", "text": "Doublon dashboard / blade Agenda", "meta": "6h" },
+        { "tone": "muted", "text": "Auditer icônes Smart Sorter", "meta": "1j" }
+      ]
+    },
+    "journal": {
+      "title": "Journal - unification",
+      "source": "NotePlan fixture",
+      "mode": "fixture",
+      "items": [
+        { "tone": "neutral", "text": "Rail gauche pliable. Panes déplacables par drag du header.", "meta": "" },
+        { "tone": "neutral", "text": "Chaque pane se replie en un bandeau via le chevron.", "meta": "" },
+        { "tone": "neutral", "text": "Onglets et modules réordonnables par glisser-déposer.", "meta": "" }
+      ]
+    },
+    "captures": {
+      "title": "Captures",
+      "source": "Raindrop fixture",
+      "mode": "fixture",
+      "items": [
+        { "tone": "info", "text": "devonthink.com/inbox-triage", "meta": "08:41" },
+        { "tone": "accent", "text": "note - règles de tags Nyx v0", "meta": "08:12" },
+        { "tone": "info", "text": "capture - sidebar NotePlan", "meta": "07:58" }
+      ]
+    },
+    "agenda": {
+      "title": "Agenda du jour",
+      "source": "Smart Sorter fixture",
+      "mode": "fixture",
+      "items": [
+        { "tone": "neutral", "text": "09:00 - Point équipe", "meta": "30m" },
+        { "tone": "neutral", "text": "11:00 - Revue des blades Nyx", "meta": "1h" },
+        { "tone": "neutral", "text": "14:00 - Bloc deep work KM Raindrop", "meta": "2h" }
+      ]
+    },
+    "notecortex": {
+      "title": "Cartouche - Actions",
+      "source": "NoteCortex fixture",
+      "mode": "fixture",
+      "items": [
+        { "tone": "info", "text": "Capturer", "meta": "" },
+        { "tone": "info", "text": "Envoyer à LLM", "meta": "" },
+        { "tone": "info", "text": "Résumer", "meta": "" },
+        { "tone": "info", "text": "Créer tâche", "meta": "" },
+        { "tone": "muted", "text": "Prompt Manager - 48 prompts", "meta": "" }
+      ]
+    },
+    "multi-llm": {
+      "title": "Sélecteur LLM",
+      "source": "Multi-LLM fixture",
+      "mode": "fixture",
+      "items": [
+        { "tone": "accent", "text": "Claude", "meta": "actif" },
+        { "tone": "muted", "text": "ChatGPT", "meta": "" },
+        { "tone": "muted", "text": "Perplexity", "meta": "" },
+        { "tone": "neutral", "text": "Bascule le modèle utilisé par les blades Capturer / Résumer.", "meta": "" }
+      ]
+    },
+    "notedroppy": {
+      "title": "NoteDroppy - Préférences",
+      "source": "NoteDroppy fixture",
+      "mode": "fixture",
+      "items": [
+        { "tone": "neutral", "text": "Capture - service macOS vers NotePlan (#capture, section cible).", "meta": "" },
+        { "tone": "neutral", "text": "Raccourcis - app générée qui ouvre une note choisie.", "meta": "" },
+        { "tone": "neutral", "text": "Commander - palette de commandes globales.", "meta": "" },
+        { "tone": "warning", "text": "Déposer une note .md ou un lien noteplan:// ici", "meta": "" }
+      ]
+    }
+  }
+}
