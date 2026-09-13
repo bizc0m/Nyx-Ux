@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nyx Original Integration — Effects Showcase</title>
+  <title>Nyx UX — Effects &amp; References Showcase</title>
   <style>
     :root {
       --ink-0: #E8E8ED;
@@ -29,13 +29,19 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: var(--font-body);
       background: var(--ink-0);
       color: var(--bone-0);
       min-height: 100vh;
       line-height: 1.5;
+      font-size: 13px;
     }
+
+    a { color: var(--ic-blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     header {
       position: sticky;
@@ -45,67 +51,135 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--ink-4);
-      padding: 18px 32px;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     header h1 {
       font-family: var(--font-display);
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
 
     header p {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--bone-2);
-      margin-top: 2px;
+      flex: 1;
     }
 
+    nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 5px;
+      background: var(--ink-2);
+      border: 1px solid var(--ink-4);
+      color: var(--bone-1);
+    }
+
+    nav a:hover { background: var(--ink-3); text-decoration: none; }
+
     main {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 32px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 32px;
     }
 
     section {
       background: var(--ink-1);
       border: 1px solid var(--ink-4);
       border-radius: 12px;
-      padding: 24px;
+      padding: 22px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
     section h2 {
       font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
       color: var(--bone-0);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    section h3 {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      margin: 18px 0 10px;
+      color: var(--bone-1);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .row {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       align-items: center;
     }
 
-    .swatch {
-      width: 64px;
-      height: 64px;
-      border-radius: 10px;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--ink-2);
       border: 1px solid var(--ink-4);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .card-label {
+      font-size: 10px;
+      color: var(--bone-2);
+      font-family: var(--font-mono);
+      margin-top: 8px;
+      word-break: break-all;
+    }
+
+    .swatch {
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      border: 1px solid var(--ink-4);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
       display: flex;
       align-items: flex-end;
       padding: 6px;
       font-size: 9px;
       font-family: var(--font-mono);
-      color: var(--bone-1);
     }
+
+    .theme-card {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .theme-strip {
+      display: flex;
+      height: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--ink-4);
+    }
+
+    .theme-strip > div { flex: 1; }
 
     .chip {
       display: inline-flex;
@@ -151,7 +225,7 @@
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
-      transition: filter 120ms ease, transform 120ms ease;
+      transition: filter 120ms ease, transform 120ms ease, background 120ms ease;
     }
 
     .btn:active { transform: scale(0.97); }
@@ -171,6 +245,13 @@
 
     .btn-secondary:hover { background: var(--ink-3); }
 
+    .btn-danger {
+      background: var(--ic-red);
+      color: #fff;
+    }
+
+    .btn-danger:hover { filter: brightness(1.05); }
+
     .pane {
       width: 180px;
       height: 120px;
@@ -181,16 +262,12 @@
       transition: width 180ms ease, padding 180ms ease, box-shadow 180ms ease;
       padding: 12px;
       overflow: hidden;
+      cursor: pointer;
     }
 
-    .pane:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
-    }
+    .pane:hover { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10); }
 
-    .pane.collapsed {
-      width: 40px;
-      padding: 12px 4px;
-    }
+    .pane.collapsed { width: 40px; padding: 12px 4px; }
 
     .lift {
       width: 80px;
@@ -220,6 +297,110 @@
       box-shadow: 0 0 0 3px var(--ink-1), 0 0 0 5px var(--sel-blue);
     }
 
+    .drag {
+      padding: 8px 12px;
+      background: var(--ink-2);
+      border: 1px solid var(--ink-4);
+      border-radius: 6px;
+      cursor: grab;
+      font-size: 12px;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .drag:active { cursor: grabbing; transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    .titlebar {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      background: var(--ink-1);
+      border-bottom: 1px solid var(--ink-4);
+      border-radius: 8px 8px 0 0;
+      font-size: 12px;
+    }
+
+    .traffic { width: 11px; height: 11px; border-radius: 999px; }
+
+    .tabbar {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 10px;
+      background: var(--ink-1);
+      border-bottom: 1px solid var(--ink-4);
+      font-size: 12px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px 5px 12px;
+      border-radius: 6px;
+      cursor: grab;
+      background: var(--ink-2);
+      border-bottom: 2px solid var(--sel-blue);
+      transition: background 120ms ease;
+    }
+
+    .tab:hover { background: var(--ink-3); }
+
+    .sidebar {
+      width: 230px;
+      background: var(--ink-1);
+      border-right: 1px solid var(--ink-4);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border-radius: 8px 0 0 8px;
+      transition: width 180ms ease, padding 180ms ease;
+    }
+
+    .sidebar.collapsed { width: 40px; padding: 14px 4px; overflow: hidden; }
+
+    .sidebar h4 {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bone-3);
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 120ms ease;
+      white-space: nowrap;
+    }
+
+    .sidebar-item:hover { background: var(--ink-2); }
+
+    .input {
+      flex: 1;
+      padding: 6px 9px;
+      background: var(--ink-2);
+      border: 1px solid var(--ink-4);
+      border-radius: 5px;
+      font-size: 12px;
+      color: var(--bone-1);
+      outline: none;
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .input:focus {
+      border-color: var(--sel-blue);
+      box-shadow: 0 0 0 3px rgba(10, 95, 255, 0.15);
+    }
+
     .mono-sample {
       font-family: var(--font-mono);
       font-size: 12px;
@@ -231,89 +412,281 @@
     }
 
     .note {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--bone-2);
-      margin-top: 12px;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--ink-4);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--bone-2);
+      font-weight: 600;
+      background: var(--ink-2);
+    }
+
+    td code {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--bone-1);
+      background: var(--ink-2);
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    .demo-window {
+      border: 1px solid var(--ink-4);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      display: flex;
+      height: 220px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Nyx Original Integration — Effects Showcase</h1>
-    <p>Page de style statique qui expose les couleurs, typographies, ombres et animations du prototype fusionné.</p>
+    <h1>Nyx UX Showcase</h1>
+    <p>Tous les effets, tokens et composants du prototype Nyx Original Integration — avec références.</p>
+    <nav>
+      <a href="#themes">Thèmes</a>
+      <a href="#tokens">Tokens</a>
+      <a href="#typo">Typo</a>
+      <a href="#layout">Layout</a>
+      <a href="#components">Composants</a>
+      <a href="#effects">Effets</a>
+      <a href="#refs">Références</a>
+    </nav>
   </header>
 
   <main>
-    <section>
-      <h2>Palette macOS Light</h2>
-      <div class="row">
-        <div class="swatch" style="background:var(--ink-0)">ink-0</div>
-        <div class="swatch" style="background:var(--ink-1)">ink-1</div>
-        <div class="swatch" style="background:var(--ink-2)">ink-2</div>
-        <div class="swatch" style="background:var(--ink-3)">ink-3</div>
-        <div class="swatch" style="background:var(--ink-4)">ink-4</div>
-      </div>
-      <div class="row" style="margin-top:12px;">
-        <div class="swatch" style="background:var(--bone-0);color:var(--ink-1)">bone-0</div>
-        <div class="swatch" style="background:var(--bone-1);color:var(--ink-1)">bone-1</div>
-        <div class="swatch" style="background:var(--bone-2);color:var(--ink-1)">bone-2</div>
-        <div class="swatch" style="background:var(--bone-3);color:var(--bone-0)">bone-3</div>
-      </div>
+    <section id="themes">
+      <h2><span class="status-dot"></span> Thèmes</h2>
+      <h3>macOS Light (référence NotePlan)</h3>
+      <div class="row" id="macos-swatches"></div>
+      <h3>Thèmes colorés générés (THEME_DEFS)</h3>
+      <div class="grid" id="theme-grid"></div>
     </section>
 
-    <section>
-      <h2>Icônes sémantiques</h2>
-      <div class="row">
-        <div class="swatch" style="background:var(--ic-blue);color:#fff">blue</div>
-        <div class="swatch" style="background:var(--ic-green);color:#fff">green</div>
-        <div class="swatch" style="background:var(--ic-red);color:#fff">red</div>
-        <div class="swatch" style="background:var(--ic-orange);color:#fff">orange</div>
-        <div class="swatch" style="background:var(--ic-teal);color:#fff">teal</div>
-        <div class="swatch" style="background:var(--ic-purple);color:#fff">purple</div>
-      </div>
+    <section id="tokens">
+      <h2>Tokens couleur &amp; icônes</h2>
+      <h3>Surfaces — ink-*</h3>
+      <div class="row" id="ink-swatches"></div>
+      <h3>Textes — bone-*</h3>
+      <div class="row" id="bone-swatches"></div>
+      <h3>Icônes sémantiques — ic-*</h3>
+      <div class="row" id="icon-swatches"></div>
     </section>
 
-    <section>
+    <section id="typo">
       <h2>Typographie</h2>
       <div class="row" style="flex-direction:column;align-items:stretch;gap:8px;">
-        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;">Display — SF Pro Display Bold</div>
-        <div style="font-family:var(--font-body);font-size:13px;">Body — SF Pro Text 13px, la base de l’interface Nyx.</div>
-        <div class="mono-sample">Mono — ui-monospace / SF Mono pour les métadonnées et chemins.</div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;">Display — SF Pro Display Bold 18px</div>
+        <div style="font-family:var(--font-body);font-size:13px;">Body — SF Pro Text 13px, base de l’interface.</div>
+        <div class="mono-sample">Mono — ui-monospace / SF Mono pour métadonnées et chemins.</div>
       </div>
     </section>
 
-    <section>
-      <h2>Composants & transitions</h2>
+    <section id="layout">
+      <h2>Layout types Nyx</h2>
+      <div class="demo-window">
+        <div class="sidebar" id="demo-sidebar">
+          <h4>Cockpit</h4>
+          <div class="sidebar-item"><span style="width:14px;height:14px;background:var(--ic-blue);border-radius:3px;"></span> NOW</div>
+          <div class="sidebar-item"><span style="width:14px;height:14px;background:var(--ic-orange);border-radius:3px;"></span> NEXT</div>
+          <div class="sidebar-item"><span style="width:14px;height:14px;background:var(--bone-3);border-radius:3px;"></span> WAITING</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+          <div class="titlebar">
+            <div class="traffic" style="background:#FF5F57;"></div>
+            <div class="traffic" style="background:#FEBC2E;"></div>
+            <div class="traffic" style="background:#28C840;"></div>
+            <span style="margin-left:8px;font-weight:600;">Nyx</span>
+            <span style="color:var(--bone-3);">/</span>
+            <span style="color:var(--bone-2);">Dashboard composable</span>
+          </div>
+          <div class="tabbar">
+            <div class="tab">Dashboard <span style="margin-left:6px;cursor:pointer;">×</span></div>
+            <div class="tab" style="border-bottom-color:transparent;background:transparent;">Documents</div>
+          </div>
+          <div style="flex:1;background:var(--ink-0);padding:12px;display:flex;gap:8px;">
+            <div class="pane" style="flex:1;height:auto;" onclick="this.classList.toggle('collapsed')">
+              <div style="font-weight:600;">Pane 1</div>
+              <div style="color:var(--bone-2);font-size:11px;">Clique pour rétrécir</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="note">Clique sur la sidebar ou le pane pour voir les transitions 180ms. Réf : <code>integrated-template.html</code> l. 75, 178.</p>
+    </section>
+
+    <section id="components">
+      <h2>Composants</h2>
+      <h3>Boutons</h3>
       <div class="row">
-        <div class="chip">Tag <span class="status-dot"></span></div>
-        <div class="chip">Documents</div>
-        <div class="chip">Registry</div>
         <button class="btn btn-primary">Primary</button>
         <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-danger">Danger</button>
       </div>
-      <p class="note">Les chips et boutons utilisent des transitions CSS de 120 ms sur transform, box-shadow et background.</p>
-    </section>
-
-    <section>
-      <h2>Ombres & élévation</h2>
+      <h3>Chips &amp; status</h3>
       <div class="row">
-        <div class="lift">hover me</div>
-        <div class="pane" id="demo-pane">
-          <div style="font-size:12px;font-weight:600;color:var(--bone-0);">Pane</div>
-          <div style="font-size:11px;color:var(--bone-2);margin-top:4px;">1 pane · Nyx</div>
-        </div>
+        <div class="chip">Documents <span class="status-dot"></span></div>
+        <div class="chip">Registry</div>
+        <div class="chip" style="background:var(--ic-blue);color:#fff;border-color:transparent;">Agent</div>
+      </div>
+      <h3>Drag handles</h3>
+      <div class="row">
+        <div class="drag">≡ Onglet déplaçable</div>
+        <div class="drag">≡ Blade déplaçable</div>
+      </div>
+      <h3>Inputs</h3>
+      <div class="row" style="align-items:stretch;">
+        <input class="input" placeholder="Rechercher…">
         <div class="ring"></div>
       </div>
-      <p class="note">Le pane rétrécit au clic (transition 180 ms sur width/padding). La bague montre le focus accent.</p>
     </section>
 
-    <section>
-      <h2>Header flouté</h2>
-      <p class="note">Le header de cette page utilise <code>backdrop-filter: blur(16px)</code>, le même effet que le title bar du dashboard.</p>
+    <section id="effects">
+      <h2>Effets</h2>
+      <h3>Élévation</h3>
+      <div class="row">
+        <div class="lift">hover lift</div>
+        <div class="pane" id="demo-pane">
+          <div style="font-weight:600;">Pane</div>
+          <div style="color:var(--bone-2);font-size:11px;">hover + click</div>
+        </div>
+        <div class="ring" title="Focus ring"></div>
+      </div>
+      <h3>Backdrop filter</h3>
+      <p class="note">Le header sticky de cette page utilise <code>backdrop-filter: blur(16px)</code>. Réf : <code>integrated-template.html</code> (title bar flouté) et <code>registry-console-source.html</code>.</p>
+      <h3>Animation nyx-pulse</h3>
+      <div class="row">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span class="status-dot"></span>
+          <span style="font-family:var(--font-mono);font-size:11px;">nyx-pulse 2s ease-in-out infinite</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="refs">
+      <h2>Références sources</h2>
+      <table>
+        <thead>
+          <tr><th>Fichier</th><th>Rôle</th><th>Effets / tokens notables</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Nyx-Original-Integre.html</code></td>
+            <td>Prototype fusionné final (Documents + Registry + Dashboard).</td>
+            <td><code>nyx-pulse</code>, variables thème, layout complet.</td>
+          </tr>
+          <tr>
+            <td><code>integrated-template.html</code></td>
+            <td>Template runtime du dashboard avec Documents/Registry intégrés.</td>
+            <td><code>transition: width 180ms ease, padding 180ms ease</code> (sidebar) ; <code>box-shadow: {{ pane.ring }}</code> ; <code>backdrop-filter: blur(16px)</code>.</td>
+          </tr>
+          <tr>
+            <td><code>original-template.html</code></td>
+            <td>Template original avant intégration des Blades.</td>
+            <td>Mêmes effets de base que <code>integrated-template.html</code> ; base de comparaison.</td>
+          </tr>
+          <tr>
+            <td><code>documents-base.html</code></td>
+            <td>Blade Documents autonome (import, chapitres, annotations).</td>
+            <td><code>box-shadow: 0 4px 14px rgba(59,130,246,.3)</code> ; thème Documents macOS Light forcé.</td>
+          </tr>
+          <tr>
+            <td><code>registry-console-source.html</code></td>
+            <td>Console Registry autonome.</td>
+            <td><code>:root { --bg, --panel, --ink, --accent… }</code> ; <code>backdrop-filter: blur(16px)</code> ; <code>box-shadow: var(--shadow)</code>.</td>
+          </tr>
+          <tr>
+            <td><code>effects-showcase.html</code></td>
+            <td>Cette page.</td>
+            <td>Compilation des effets ci-dessus pour démo publique.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
 
   <script>
+    const THEME_DEFS = [
+      { name: 'Crimson', mode: 'dark', hue: 350 }, { name: 'Amber', mode: 'dark', hue: 35 },
+      { name: 'Gold', mode: 'dark', hue: 50 }, { name: 'Lime', mode: 'dark', hue: 95 },
+      { name: 'Emerald', mode: 'dark', hue: 150 }, { name: 'Teal', mode: 'dark', hue: 175 },
+      { name: 'Cyan', mode: 'dark', hue: 190 }, { name: 'Azure', mode: 'dark', hue: 210 },
+      { name: 'Indigo', mode: 'dark', hue: 245 }, { name: 'Violet', mode: 'light', hue: 265 },
+      { name: 'Magenta', mode: 'light', hue: 310 }, { name: 'Rose', mode: 'light', hue: 340 },
+      { name: 'Orange', mode: 'light', hue: 20 }, { name: 'Sage', mode: 'light', hue: 120 },
+      { name: 'Slate Blue', mode: 'light', hue: 220 }
+    ];
+
+    function makeSwatch(name, color, text) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `<div class="swatch" style="background:${color};color:${text}"></div><div class="card-label">${name}<br>${color}</div>`;
+      return div;
+    }
+
+    // macOS Light
+    const macos = document.getElementById('macos-swatches');
+    [
+      ['--ink-0','#E8E8ED','#1D1D1F'], ['--ink-1','#FFFFFF','#1D1D1F'], ['--ink-2','#F6F6F7','#1D1D1F'], ['--ink-3','#EDEDEF','#1D1D1F'], ['--ink-4','#DBDBDF','#1D1D1F'],
+      ['--bone-0','#1D1D1F','#FFFFFF'], ['--bone-1','#4A4A4E','#FFFFFF'], ['--bone-2','#8A8A8E','#FFFFFF'], ['--bone-3','#C2C2C6','#1D1D1F'],
+      ['--accent','#0A5FFF','#FFFFFF']
+    ].forEach(([name,c,t]) => macos.appendChild(makeSwatch(name, c, t)));
+
+    // theme grid
+    const grid = document.getElementById('theme-grid');
+    THEME_DEFS.forEach(t => {
+      const isDark = t.mode === 'dark';
+      const ink1 = isDark ? `hsl(${t.hue} 35% 9%)` : `hsl(${t.hue} 20% 98%)`;
+      const ink2 = isDark ? `hsl(${t.hue} 32% 12%)` : `hsl(${t.hue} 18% 95%)`;
+      const ink4 = isDark ? `hsl(${t.hue} 26% 24%)` : `hsl(${t.hue} 15% 88%)`;
+      const bone0 = isDark ? `hsl(${t.hue} 15% 96%)` : `hsl(${t.hue} 30% 12%)`;
+      const accent = isDark ? `hsl(${t.hue} 85% 62%)` : `hsl(${t.hue} 70% 45%)`;
+      const card = document.createElement('div');
+      card.className = 'card theme-card';
+      card.innerHTML = `
+        <div style="font-size:11px;font-weight:600;">${t.name}</div>
+        <div style="font-size:10px;color:var(--bone-2);">${t.mode} · hue ${t.hue}</div>
+        <div class="theme-strip">
+          <div style="background:${ink1}"></div>
+          <div style="background:${ink2}"></div>
+          <div style="background:${ink4}"></div>
+          <div style="background:${bone0}"></div>
+          <div style="background:${accent}"></div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // tokens
+    const inks = document.getElementById('ink-swatches');
+    [['--ink-0','#E8E8ED'],['--ink-1','#FFFFFF'],['--ink-2','#F6F6F7'],['--ink-3','#EDEDEF'],['--ink-4','#DBDBDF']].forEach(([n,c]) => inks.appendChild(makeSwatch(n, c, '#1D1D1F')));
+
+    const bones = document.getElementById('bone-swatches');
+    [['--bone-0','#1D1D1F'],['--bone-1','#4A4A4E'],['--bone-2','#8A8A8E'],['--bone-3','#C2C2C6']].forEach(([n,c]) => bones.appendChild(makeSwatch(n, c, c === '#C2C2C6' ? '#1D1D1F' : '#FFFFFF')));
+
+    const icons = document.getElementById('icon-swatches');
+    [['--ic-blue','#0A5FFF'],['--ic-green','#43A047'],['--ic-red','#E53935'],['--ic-orange','#FB8C00'],['--ic-teal','#00897B'],['--ic-purple','#8E24AA']].forEach(([n,c]) => icons.appendChild(makeSwatch(n, c, '#FFFFFF')));
+
+    document.getElementById('demo-sidebar').addEventListener('click', function () {
+      this.classList.toggle('collapsed');
+    });
     document.getElementById('demo-pane').addEventListener('click', function () {
       this.classList.toggle('collapsed');
     });
