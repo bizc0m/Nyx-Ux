@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nyx Original Integration — Effects Showcase</title>
+  <style>
+    :root {
+      --ink-0: #E8E8ED;
+      --ink-1: #FFFFFF;
+      --ink-2: #F6F6F7;
+      --ink-3: #EDEDEF;
+      --ink-4: #DBDBDF;
+      --bone-0: #1D1D1F;
+      --bone-1: #4A4A4E;
+      --bone-2: #8A8A8E;
+      --bone-3: #C2C2C6;
+      --sel-blue: #0A5FFF;
+      --ic-blue: #0A5FFF;
+      --ic-red: #E53935;
+      --ic-teal: #00897B;
+      --ic-orange: #FB8C00;
+      --ic-green: #43A047;
+      --ic-purple: #8E24AA;
+      --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--ink-0);
+      color: var(--bone-0);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--ink-4);
+      padding: 18px 32px;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 13px;
+      color: var(--bone-2);
+      margin-top: 2px;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    section {
+      background: var(--ink-1);
+      border: 1px solid var(--ink-4);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    section h2 {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--bone-0);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      border: 1px solid var(--ink-4);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      font-size: 9px;
+      font-family: var(--font-mono);
+      color: var(--bone-1);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--ink-2);
+      border: 1px solid var(--ink-4);
+      color: var(--bone-1);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+      cursor: default;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      background: var(--ink-3);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--ic-green);
+      animation: nyx-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes nyx-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: filter 120ms ease, transform 120ms ease;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--ic-green);
+      color: #07070B;
+    }
+
+    .btn-primary:hover { filter: brightness(1.05); }
+
+    .btn-secondary {
+      background: var(--ink-2);
+      border-color: var(--ink-4);
+      color: var(--bone-0);
+    }
+
+    .btn-secondary:hover { background: var(--ink-3); }
+
+    .pane {
+      width: 180px;
+      height: 120px;
+      background: var(--ink-1);
+      border: 1px solid var(--ink-4);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: width 180ms ease, padding 180ms ease, box-shadow 180ms ease;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .pane:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+    }
+
+    .pane.collapsed {
+      width: 40px;
+      padding: 12px 4px;
+    }
+
+    .lift {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--ink-2), var(--ink-3));
+      border: 1px solid var(--ink-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--bone-2);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      cursor: pointer;
+    }
+
+    .lift:hover {
+      transform: translateY(-4px) rotate(1deg);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .ring {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--sel-blue);
+      box-shadow: 0 0 0 3px var(--ink-1), 0 0 0 5px var(--sel-blue);
+    }
+
+    .mono-sample {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--bone-2);
+      background: var(--ink-2);
+      border: 1px solid var(--ink-4);
+      border-radius: 6px;
+      padding: 10px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: var(--bone-2);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nyx Original Integration — Effects Showcase</h1>
+    <p>Page de style statique qui expose les couleurs, typographies, ombres et animations du prototype fusionné.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Palette macOS Light</h2>
+      <div class="row">
+        <div class="swatch" style="background:var(--ink-0)">ink-0</div>
+        <div class="swatch" style="background:var(--ink-1)">ink-1</div>
+        <div class="swatch" style="background:var(--ink-2)">ink-2</div>
+        <div class="swatch" style="background:var(--ink-3)">ink-3</div>
+        <div class="swatch" style="background:var(--ink-4)">ink-4</div>
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <div class="swatch" style="background:var(--bone-0);color:var(--ink-1)">bone-0</div>
+        <div class="swatch" style="background:var(--bone-1);color:var(--ink-1)">bone-1</div>
+        <div class="swatch" style="background:var(--bone-2);color:var(--ink-1)">bone-2</div>
+        <div class="swatch" style="background:var(--bone-3);color:var(--bone-0)">bone-3</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Icônes sémantiques</h2>
+      <div class="row">
+        <div class="swatch" style="background:var(--ic-blue);color:#fff">blue</div>
+        <div class="swatch" style="background:var(--ic-green);color:#fff">green</div>
+        <div class="swatch" style="background:var(--ic-red);color:#fff">red</div>
+        <div class="swatch" style="background:var(--ic-orange);color:#fff">orange</div>
+        <div class="swatch" style="background:var(--ic-teal);color:#fff">teal</div>
+        <div class="swatch" style="background:var(--ic-purple);color:#fff">purple</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Typographie</h2>
+      <div class="row" style="flex-direction:column;align-items:stretch;gap:8px;">
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;">Display — SF Pro Display Bold</div>
+        <div style="font-family:var(--font-body);font-size:13px;">Body — SF Pro Text 13px, la base de l’interface Nyx.</div>
+        <div class="mono-sample">Mono — ui-monospace / SF Mono pour les métadonnées et chemins.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Composants & transitions</h2>
+      <div class="row">
+        <div class="chip">Tag <span class="status-dot"></span></div>
+        <div class="chip">Documents</div>
+        <div class="chip">Registry</div>
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+      </div>
+      <p class="note">Les chips et boutons utilisent des transitions CSS de 120 ms sur transform, box-shadow et background.</p>
+    </section>
+
+    <section>
+      <h2>Ombres & élévation</h2>
+      <div class="row">
+        <div class="lift">hover me</div>
+        <div class="pane" id="demo-pane">
+          <div style="font-size:12px;font-weight:600;color:var(--bone-0);">Pane</div>
+          <div style="font-size:11px;color:var(--bone-2);margin-top:4px;">1 pane · Nyx</div>
+        </div>
+        <div class="ring"></div>
+      </div>
+      <p class="note">Le pane rétrécit au clic (transition 180 ms sur width/padding). La bague montre le focus accent.</p>
+    </section>
+
+    <section>
+      <h2>Header flouté</h2>
+      <p class="note">Le header de cette page utilise <code>backdrop-filter: blur(16px)</code>, le même effet que le title bar du dashboard.</p>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('demo-pane').addEventListener('click', function () {
+      this.classList.toggle('collapsed');
+    });
+  </script>
+</body>
+</html>
