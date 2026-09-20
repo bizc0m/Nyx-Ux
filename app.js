@@ -93,6 +93,8 @@ async function boot() {
   applyTheme();
   render();
   bindChrome();
+  try { const { mountNeuroForge } = await import("./neuroforge-adapter.js"); mountNeuroForge(); }
+  catch (error) { console.error("NeuroForge indisponible", error); }
 }
 
 function bindChrome() {
